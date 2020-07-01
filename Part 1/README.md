@@ -1,5 +1,5 @@
 # Bachelor-thesis
-In this project cosmic rays from a detector Cherenkov are analyzed by supervised learning algorithms.
+In this project cosmic rays from the CORSIKA siumlator are analyzed with supervised learning algorithms.
 
 Features
 
@@ -15,7 +15,7 @@ Features
 
 Labels: photon, proton, helium, nitrogen, iron. The smallest number is assigned to photon (A=0) and the highest number to the heaviest particle, this is, iron (B=4).
 
-     0 -->  photon  
+    0 -->  photon  
     
     1 --> proton
     
