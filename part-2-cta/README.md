@@ -1,4 +1,4 @@
-# Bachelor-thesis
+# Part 2 — Cherenkov Telescope Array images
 In this project cosmic rays from the Cherenkov Telescope Array are analyzed.
 
 Features

@@ -1,5 +1,5 @@
-# Bachelor-thesis
-In this project cosmic rays from the CORSIKA siumlator are analyzed with supervised learning algorithms.
+# Part 1 — CORSIKA ground-level data
+In this project cosmic rays from the CORSIKA simulator are analyzed with supervised learning algorithms.
 
 Features
 
