@@ -38,30 +38,51 @@ Seven supervised classifiers are built on these features and compared:
 
 **[`part-2-cta/`](part-2-cta/)**
 
-Data simulated for the **Cherenkov Telescope Array**. A shower emits
-Cherenkov light, and the telescope camera records it as an intensity map over
-a hexagonal pixel grid — so each event is an image rather than a feature
-vector, and the natural tool is a convolutional network.
+Data simulated for the **Cherenkov Telescope Array**. A shower emits Cherenkov
+light, and the telescope camera records it as an intensity map over a
+hexagonal pixel grid — so each event is an image rather than a feature vector,
+and the natural tool is a convolutional network.
 
-- [`data-wrangling.ipynb`](part-2-cta/data-wrangling.ipynb) — turning the
-  hexagonal camera grid into arrays a CNN can consume
-- [`gamma-vs-proton.ipynb`](part-2-cta/gamma-vs-proton.ipynb),
-  [`gamma-vs-electron.ipynb`](part-2-cta/gamma-vs-electron.ipynb),
-  [`gamma-vs-all.ipynb`](part-2-cta/gamma-vs-all.ipynb) — binary separation of
-  gamma showers from each background in turn
-- [`general-classification.ipynb`](part-2-cta/general-classification.ipynb) and
-  [`general-classification-v2.ipynb`](part-2-cta/general-classification-v2.ipynb)
-  — the full multi-class problem across all particle types
-- [`all-particles-transfer-learning.ipynb`](part-2-cta/all-particles-transfer-learning.ipynb)
-  — the largest notebook here: instead of training from scratch it adapts
-  ImageNet networks (MobileNet, Xception, InceptionResNetV2) to the telescope
-  images, tiling the single-channel data to three channels and resizing to
-  96×96, and tunes the result with a TensorBoard HParams sweep
+The pipeline is a Python package driven from the command line:
 
-[`part-2-cta/cnn/`](part-2-cta/cnn/) is the same work refactored out of
-notebooks into a small package — `dataset.py` for loading and preprocessing,
-`model.py` for the architecture, `visualize.py` for the plots, driven by
-`main.py`.
+```
+part-2-cta/
+  main.py        entry point
+  CTA/
+    dataset.py   loading, preprocessing, image export, gamma shifting
+    model.py     architecture, training, testing, grid search, plots
+    visualize.py scatter and histogram plots of the raw data
+```
+
+```sh
+python main.py --data          # preprocess the simulated events into arrays
+python main.py --CNN           # train the convolutional network
+python main.py --CNN --load_model
+python main.py --NN            # the fully connected baseline
+python main.py --predict       # classify and plot the predictions
+```
+
+`Model` takes the number of classes as a parameter, so the same code covers
+the binary gamma-vs-background problems and the full seven-particle one.
+
+### Notebooks
+
+[`part-2-cta/notebooks/`](part-2-cta/notebooks/) holds the exploratory work
+the package was distilled from. They are kept because they carry their
+results — accuracy figures, confusion matrices and training curves from the
+runs — which the package code does not:
+
+- `data-wrangling` — turning the hexagonal camera grid into arrays a CNN can
+  consume
+- `gamma-vs-proton`, `gamma-vs-electron`, `gamma-vs-all` — separating gamma
+  showers from each background in turn
+- `general-classification` and `general-classification-v2` — the full
+  multi-class problem
+- `all-particles-transfer-learning` — the largest notebook here, and the one
+  piece of work not in the package: rather than training from scratch it
+  adapts ImageNet networks (MobileNet, Xception, InceptionResNetV2) to the
+  telescope images, tiling the single-channel data to three channels and
+  resizing to 96×96, then tunes them with a TensorBoard HParams sweep
 
 ## Extras
 

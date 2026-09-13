@@ -1,0 +1,4 @@
+* text=auto eol=lf
+# notebooks carry their stored outputs, which otherwise dominate the language
+# statistics and make the repository look like it contains no Python
+*.ipynb linguist-documentation
