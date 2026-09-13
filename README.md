@@ -49,8 +49,14 @@ vector, and the natural tool is a convolutional network.
   [`gamma-vs-electron.ipynb`](part-2-cta/gamma-vs-electron.ipynb),
   [`gamma-vs-all.ipynb`](part-2-cta/gamma-vs-all.ipynb) — binary separation of
   gamma showers from each background in turn
-- [`general-classification.ipynb`](part-2-cta/general-classification.ipynb) —
-  the full multi-class problem across all particle types
+- [`general-classification.ipynb`](part-2-cta/general-classification.ipynb) and
+  [`general-classification-v2.ipynb`](part-2-cta/general-classification-v2.ipynb)
+  — the full multi-class problem across all particle types
+- [`all-particles-transfer-learning.ipynb`](part-2-cta/all-particles-transfer-learning.ipynb)
+  — the largest notebook here: instead of training from scratch it adapts
+  ImageNet networks (MobileNet, Xception, InceptionResNetV2) to the telescope
+  images, tiling the single-channel data to three channels and resizing to
+  96×96, and tunes the result with a TensorBoard HParams sweep
 
 [`part-2-cta/cnn/`](part-2-cta/cnn/) is the same work refactored out of
 notebooks into a small package — `dataset.py` for loading and preprocessing,
