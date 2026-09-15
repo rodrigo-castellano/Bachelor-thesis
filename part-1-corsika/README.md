@@ -1,4 +1,5 @@
 # Part 1 — CORSIKA ground-level data
+
 In this project cosmic rays from the CORSIKA simulator are analyzed with supervised learning algorithms.
 
 Features
@@ -26,3 +27,47 @@ Labels: photon, proton, helium, nitrogen, iron. The smallest number is assigned 
     4 --> iron 
      
 Algotirthms that are used: KNN, SVM, Decision Tree, Random Forest, Logistic regression, Neural network.
+
+## The data
+
+    XRodrigo.txt   YRodrigo.txt    training set, features and labels
+    XTest.txt      YTest.txt       test set
+
+They sit here, beside the notebooks, rather than in a `data/` subfolder,
+because every notebook opens them by bare filename — the working directory is
+this one.
+
+## results/
+
+Saved output from runs that are expensive to repeat. The grid searches take
+hours; these let you skip that cell and carry on.
+
+    neural-network/
+      random-grid-search-results-01.csv   the randomised search over the
+      random-grid-search-results-02.csv   network hyperparameters. -02 is the
+                                          one `neural-network.ipynb` reads
+                                          back; -03 is written by that
+                                          notebook, not read, so it is not
+                                          kept here
+      basic_history.pickle                Keras training history, written and
+                                          then read back to draw the accuracy
+                                          curve
+      training-history.csv                per-epoch loss / accuracy /
+                                          val_loss / val_accuracy from the
+                                          same run
+    svm/
+      grid-search-results-01..05.csv      five successive searches over C and
+                                          gamma. `svm.ipynb` reads -05
+    xgboost/
+      xgb-random-grid-search-results-01.csv
+
+**They are one directory down on purpose.** The notebooks read and write these
+by bare filename, and `decision-tree`, `random-forest` and `xgboost` all write
+to the same name, `grid-search-results-01.csv` — flattening them here would
+mean three files silently overwriting each other. To re-run a notebook from
+its saved search, copy the file you want up beside the notebook first.
+
+Everything else these notebooks produce — the trees, the pair plots, the
+decision-surface gif, the `.dot` files — is regenerated in seconds once the
+data above is in place, and most of it is already embedded in the notebooks'
+stored outputs.
